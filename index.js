@@ -209,13 +209,13 @@ Practice accessing data above by console.log-ing following items:
 
 //(1) Name of the first artist (0th index) in the array
 
-console.log("artist"[0]);
+console.log(artists[0]);
 
 
 
 
 //(2) Bio of the third artist (2nd index) in the array 
-console.log("bio"[3]);
+console.log(artists[3].bio);
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2 (not auto tested): 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 (no function needed) 
@@ -232,12 +232,11 @@ Use getArtistByIndex to do the following:
 
 🌟 EXAMPLE: if getArtistByIndex is invoked with the artists array and the number 0, it will return `the artist at index 0 is Amedeo Modigliani` */
 
-function getArtistByIndex(artistArray, index) {
-  const artist = artistArray [index];
- const id = artist.id; 
-const name = artist.name;
-return  `the artist at index ${id} is ${name}`;
+function getArtistByIndex(artists, index) {
+  const artist = artists[index];
+  return `the artist at index ${index} is ${artist.name}`;
 }
+
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 4: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use listOfNames to do the following: 
@@ -248,13 +247,15 @@ Use listOfNames to do the following:
 */
 
 function listOfNames(artists) {
-  let artistNames = [...artists]; 
+  let artistNames = [...artists];
   for (let i = 0; i < artistNames.length; i++){
-    let listOfNames = listOfNames[i].split("Amedeo Modigliani", "Vasiliy Kandinskiy", "Diego Rivera")[0];
+    let listOfNames = artistNames[i].name.split(",")[0];
     artistNames[i] = listOfNames;
   }
   return artistNames;
 }
+
+
 
 
 
@@ -293,17 +294,26 @@ Use addArtist to do the following:
 🌟 EXAMPLE: Invoking addArtist(artists, 'John Doe', '1988-2022', 'Full Stack Development', 'African American', 'I have a background in customer service at Big Retail Chain. I am attending BloomTech to become a Frontend Developer.') should return the artists array with the above object added to the end of the array. */
 
 function addArtist(artists, name, years, genre, nationality, bio) {
-  let copy = [...artists]; // create a copy of the orginal array
-  let newArtist = (
-    name== name,
-    years== years,
-    genre== genre,
-    nationality== nationality,
-    bio== bio
-  ); // create a new artist object with the provided information
-  copy. push(newArtist); // Add the new artist object to the copied array
-  return copy; // return the new array with the added artist
+  // Create a copy of the artists array
+  const artistsCopy = [...artists];
+
+  // Create the new artist object
+  const newArtist = {
+    name: name,
+    years: years ,
+    genre: genre,
+    nationality: nationality,
+    bio: bio
+  };
+
+  // Add the new artist to the copied array
+  artistsCopy.push(newArtist);
+
+  // Return the copied array
+  return artistsCopy;
 }
+
+
 
 
 
@@ -364,15 +374,16 @@ Use artistByCountry to do the following:
 🌟 EXAMPLE: Invoking artistByCountry(artists, 'Spanish') will return: [ 'Salvador Dali', 'Pablo Picasso', 'Francisco Goya']
 */
 
-function artistByCountry(artistArray, nationality) {
-  const filteredArtists = artistArray.filter(artist => {
-    // check if the artist has only one nationality and it matches the given nationality
-    return artist.nationality.length === 1 && artist.nationality[0] === nationality;
+function artistByCountry(artists, nationality) {
+  const filteredArtists = artists.filter(artist => {
+    return artist.nationality === nationality;
   });
-  // extract the names of the filtered artists
+  
   const artistNames = filteredArtists.map(artist => artist.name);
+  
   return artistNames;
 }
+
 
 
 
